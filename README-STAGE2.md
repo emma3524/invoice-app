@@ -47,7 +47,25 @@ A fully-functional React invoice management application with CRUD operations, st
 - localStorage for invoices
 - localStorage for theme preference
 
+## Architecture
 
+```
+src/
+├── components/
+│   ├── Header.jsx           (Navigation + theme toggle)
+│   ├── InvoiceList.jsx      (List view with filtering)
+│   ├── InvoiceDetail.jsx    (Detail + status management)
+│   ├── InvoiceForm.jsx      (Create/Edit with validation)
+│   └── [corresponding CSS files]
+├── hooks/
+│   └── useInvoices.js       (State + localStorage logic)
+├── context/
+│   └── ThemeContext.jsx     (Dark/Light mode provider)
+├── App.jsx                   (View router + state orchestration)
+├── App.css
+├── index.css
+└── main.jsx
+```
 
 ### Key Design Decisions
 
@@ -130,3 +148,8 @@ The app runs on `http://localhost:5173`
 - No multi-user sync
 - No invoice PDF export
 - No email sending
+
+## Submission
+
+**Live URL:** Deploy to Vercel/Netlify
+**Deadline:** April 21, 2026 (Evening)
