@@ -505,7 +505,69 @@ body {
     min-width: 120px;
   }
 }
-/* User Avatar Container */
+/* User Avatar Container */* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.app {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ========== SIDEBAR ========== */
+.sidebar {
+  width: 80px;
+  background: linear-gradient(180deg, #1e1b4b 0%, #312e81 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 0;
+  position: fixed;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  z-index: 100;
+}
+
+.app.dark .sidebar {
+  background: linear-gradient(180deg, #0f0f0f 0%, #1a1a2e 100%);
+}
+
+.logo-circle {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(139, 92, 246, 0.3);
+}
+
+.logo-icon {
+  font-size: 28px;
+}
+
+.sidebar-spacer {
+  flex: 1;
+}
+
+.sidebar-footer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
 .user-avatar-container {
   cursor: pointer;
   transition: transform 0.2s;
@@ -515,30 +577,50 @@ body {
   transform: scale(1.05);
 }
 
-/* Dropdown Menu */
+.sidebar-avatar {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #8b5cf6;
+}
+
+/* Dropdown Menu - FIXED - appears to the right of sidebar */
 .user-dropdown-menu {
-  position: absolute;
-  bottom: 70px;
-  left: 50%;
-  transform: translateX(-50%);
+  position: fixed;
+  bottom: 20px;
+  left: 90px;
   background: white;
   border-radius: 16px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-  width: 240px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  width: 220px;
   overflow: hidden;
-  z-index: 100;
+  z-index: 1000;
   border: 1px solid #e2e8f0;
+  animation: fadeIn 0.2s ease;
 }
 
 .app.dark .user-dropdown-menu {
   background: #1e293b;
   border-color: #334155;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .dropdown-header {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   padding: 12px;
   background: #f8fafc;
 }
@@ -548,19 +630,15 @@ body {
 }
 
 .dropdown-avatar {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   object-fit: cover;
 }
 
-.dropdown-user-info {
-  flex: 1;
-}
-
 .dropdown-user-name {
   font-weight: 600;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: #0f172a;
 }
 
@@ -569,7 +647,7 @@ body {
 }
 
 .dropdown-user-email {
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   color: #64748b;
 }
 
@@ -591,7 +669,7 @@ body {
   padding: 10px 12px;
   background: none;
   border: none;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: #334155;
   cursor: pointer;
   text-align: left;
@@ -614,16 +692,448 @@ body {
   color: #dc2626;
 }
 
-.app.dark .dropdown-item.logout {
-  color: #f87171;
+/* ========== MAIN CONTENT ========== */
+.main-content {
+  flex: 1;
+  margin-left: 80px;
+  background: #f8fafc;
+  min-height: 100vh;
 }
 
-/* Remove old dark mode toggle button styles since we removed it */
-.dark-mode-toggle-sidebar {
-  display: none;
+.app.dark .main-content {
+  background: #0f172a;
 }
 
-/* Make sidebar footer relative for dropdown positioning */
-.sidebar-footer {
-  position: relative;
+.content-wrapper {
+  padding: 2rem;
+  max-width: 1100px;
+}
+
+/* Header */
+.content-header {
+  margin-bottom: 1.5rem;
+}
+
+.content-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 0.25rem;
+}
+
+.app.dark .content-header h1 {
+  color: white;
+}
+
+.invoice-count {
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+/* Filter Bar */
+.filter-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.right-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.filter-group label {
+  font-size: 0.85rem;
+  color: #475569;
+}
+
+.app.dark .filter-group label {
+  color: #94a3b8;
+}
+
+.status-filter-select {
+  padding: 0.5rem 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: white;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.app.dark .status-filter-select {
+  background: #1e293b;
+  border-color: #334155;
+  color: white;
+}
+
+.new-invoice-btn {
+  padding: 0.5rem 1.25rem;
+  background: #7c3aed;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.new-invoice-btn:hover {
+  background: #6d28d9;
+}
+
+/* Invoice List */
+.invoice-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.invoice-item {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+}
+
+.app.dark .invoice-item {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+.invoice-row-single {
+  display: grid;
+  grid-template-columns: 100px 80px 1fr 120px 130px 40px;
+  align-items: center;
+  padding: 0.9rem 1.2rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  gap: 0.5rem;
+}
+
+.invoice-row-single:hover {
+  background: #fefce8;
+}
+
+.app.dark .invoice-row-single:hover {
+  background: #1a2741;
+}
+
+.invoice-id {
+  font-weight: 700;
+  color: #7c3aed;
+  font-size: 0.85rem;
+}
+
+.status-badge-small {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  text-align: center;
+  width: fit-content;
+}
+
+.invoice-client {
+  font-weight: 500;
+  color: #0f172a;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.app.dark .invoice-client {
+  color: white;
+}
+
+.invoice-amount {
+  font-weight: 600;
+  color: #0f172a;
+  font-size: 0.85rem;
+  text-align: right;
+}
+
+.app.dark .invoice-amount {
+  color: #c4b5fd;
+}
+
+.invoice-date {
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+.app.dark .invoice-date {
+  color: #94a3b8;
+}
+
+.invoice-expand-icon {
+  color: #7c3aed;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+}
+
+.expand-arrow {
+  display: inline-block;
+  transition: transform 0.2s;
+}
+
+.expand-arrow.expanded {
+  transform: rotate(90deg);
+}
+
+/* Status badge colors */
+.status-paid {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status-pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status-draft {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.app.dark .status-paid {
+  background: #064e3b;
+  color: #86efac;
+}
+
+.app.dark .status-pending {
+  background: #78350f;
+  color: #fcd34d;
+}
+
+.app.dark .status-draft {
+  background: #334155;
+  color: #cbd5e1;
+}
+
+/* Expandable Actions Panel */
+.invoice-actions-panel {
+  padding: 0.7rem 1.2rem;
+  border-top: 1px solid #e2e8f0;
+  background: #f8fafc;
+}
+
+.app.dark .invoice-actions-panel {
+  background: #0f172a;
+  border-top-color: #334155;
+}
+
+.action-buttons-small {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.action-edit-small, .action-delete-small {
+  padding: 0.25rem 0.75rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+
+.action-edit-small {
+  background: #e2e8f0;
+  color: #334155;
+}
+
+.action-delete-small {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.app.dark .action-edit-small {
+  background: #334155;
+  color: #e2e8f0;
+}
+
+.app.dark .action-delete-small {
+  background: #7f1d1d;
+  color: #fca5a5;
+}
+
+.status-update-small {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+.status-update-small label {
+  font-size: 0.7rem;
+  color: #64748b;
+}
+
+.status-update-small select {
+  padding: 0.2rem 0.5rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  background: white;
+}
+
+.app.dark .status-update-small select {
+  background: #1e293b;
+  border-color: #334155;
+  color: white;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  width: 90%;
+  max-width: 500px;
+}
+
+.app.dark .modal-content {
+  background: #1e293b;
+  color: white;
+}
+
+.modal-content h2 {
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 0.9rem;
+}
+
+.app.dark .form-group input,
+.app.dark .form-group select {
+  background: #0f172a;
+  border-color: #334155;
+  color: white;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+}
+
+.btn-primary {
+  background: #7c3aed;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.btn-secondary {
+  background: #e2e8f0;
+  color: #334155;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .invoice-row-single {
+    grid-template-columns: 90px 70px 1fr 100px 110px 35px;
+    gap: 0.3rem;
+    padding: 0.8rem 1rem;
+  }
+  
+  .user-dropdown-menu {
+    left: 70px;
+    width: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 60px;
+  }
+  
+  .main-content {
+    margin-left: 60px;
+  }
+  
+  .content-wrapper {
+    padding: 1rem;
+  }
+  
+  .filter-actions {
+    justify-content: flex-end;
+  }
+  
+  .right-actions {
+    gap: 0.5rem;
+  }
+  
+  .filter-group label {
+    display: none;
+  }
+  
+  .invoice-row-single {
+    grid-template-columns: 80px 65px 1fr 85px 95px 30px;
+    gap: 0.2rem;
+    padding: 0.7rem 0.8rem;
+    font-size: 0.7rem;
+  }
+  
+  .user-dropdown-menu {
+    left: 65px;
+    width: 190px;
+    bottom: 10px;
+  }
+  
+  .dropdown-item {
+    font-size: 0.7rem;
+    padding: 8px 10px;
+  }
 }
