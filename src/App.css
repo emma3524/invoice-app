@@ -91,7 +91,7 @@ body {
 
 .content-wrapper {
   padding: 2rem;
-  max-width: 800px;
+  max-width: 1000px;
 }
 
 /* Header */
@@ -161,16 +161,16 @@ body {
   cursor: pointer;
 }
 
-/* Invoice List - NO HEADERS */
+/* Invoice List - SINGLE LINE */
 .invoice-list {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.5rem;
 }
 
 .invoice-item {
   background: white;
-  border-radius: 16px;
+  border-radius: 12px;
   overflow: hidden;
   border: 1px solid #e2e8f0;
 }
@@ -180,38 +180,30 @@ body {
   border-color: #334155;
 }
 
-.invoice-row-compact {
+/* Single row - everything on one line */
+.invoice-row-single {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 1rem 1.5rem;
+  gap: 1.5rem;
+  padding: 0.9rem 1.2rem;
   cursor: pointer;
   transition: background 0.2s;
 }
 
-.invoice-row-compact:hover {
+.invoice-row-single:hover {
   background: #fefce8;
 }
 
-.app.dark .invoice-row-compact:hover {
+.app.dark .invoice-row-single:hover {
   background: #1a2741;
 }
 
-.invoice-info {
-  flex: 1;
-}
-
-.invoice-id-status {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 0.5rem;
-}
-
+/* Columns - fixed widths to keep everything on one line */
 .invoice-id {
   font-weight: 700;
   color: #7c3aed;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+  min-width: 90px;
 }
 
 .status-badge-small {
@@ -221,8 +213,60 @@ body {
   font-size: 0.7rem;
   font-weight: 600;
   text-transform: capitalize;
+  min-width: 70px;
+  text-align: center;
 }
 
+.invoice-client {
+  font-weight: 500;
+  color: #0f172a;
+  font-size: 0.85rem;
+  min-width: 150px;
+}
+
+.app.dark .invoice-client {
+  color: white;
+}
+
+.invoice-amount {
+  font-weight: 600;
+  color: #0f172a;
+  font-size: 0.85rem;
+  min-width: 100px;
+}
+
+.app.dark .invoice-amount {
+  color: #c4b5fd;
+}
+
+.invoice-date {
+  font-size: 0.8rem;
+  color: #64748b;
+  min-width: 120px;
+}
+
+.app.dark .invoice-date {
+  color: #94a3b8;
+}
+
+.invoice-expand-icon {
+  color: #7c3aed;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-left: auto;
+  cursor: pointer;
+}
+
+.expand-arrow {
+  display: inline-block;
+  transition: transform 0.2s;
+}
+
+.expand-arrow.expanded {
+  transform: rotate(90deg);
+}
+
+/* Status badge colors */
 .status-paid {
   background: #dcfce7;
   color: #166534;
@@ -253,57 +297,9 @@ body {
   color: #cbd5e1;
 }
 
-.invoice-details {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 0.25rem;
-}
-
-.invoice-client {
-  font-weight: 500;
-  color: #0f172a;
-}
-
-.app.dark .invoice-client {
-  color: white;
-}
-
-.invoice-amount {
-  font-weight: 600;
-  color: #0f172a;
-}
-
-.app.dark .invoice-amount {
-  color: #c4b5fd;
-}
-
-.invoice-date {
-  font-size: 0.75rem;
-  color: #64748b;
-}
-
-.app.dark .invoice-date {
-  color: #94a3b8;
-}
-
-.invoice-expand-icon {
-  color: #7c3aed;
-  font-size: 1.2rem;
-  font-weight: bold;
-}
-
-.expand-arrow {
-  display: inline-block;
-  transition: transform 0.2s;
-}
-
-.expand-arrow.expanded {
-  transform: rotate(90deg);
-}
-
-/* Expandable Actions Panel */
+/* Expandable Actions Panel - SMALL BUTTONS */
 .invoice-actions-panel {
-  padding: 1rem 1.5rem;
+  padding: 0.7rem 1.2rem;
   border-top: 1px solid #e2e8f0;
   background: #f8fafc;
 }
@@ -313,58 +309,66 @@ body {
   border-top-color: #334155;
 }
 
-.action-buttons {
+.action-buttons-small {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.75rem;
   flex-wrap: wrap;
 }
 
-.action-edit, .action-delete {
-  padding: 0.4rem 1rem;
+.action-edit-small, .action-delete-small {
+  padding: 0.25rem 0.75rem;
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
   cursor: pointer;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
+  font-weight: 500;
 }
 
-.action-edit {
+.action-edit-small {
   background: #e2e8f0;
   color: #334155;
 }
 
-.action-delete {
+.action-delete-small {
   background: #fee2e2;
   color: #dc2626;
 }
 
-.app.dark .action-edit {
+.app.dark .action-edit-small {
   background: #334155;
   color: #e2e8f0;
 }
 
-.app.dark .action-delete {
+.app.dark .action-delete-small {
   background: #7f1d1d;
   color: #fca5a5;
 }
 
-.status-update {
+.status-update-small {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   margin-left: auto;
 }
 
-.status-update label {
-  font-size: 0.8rem;
+.status-update-small label {
+  font-size: 0.7rem;
   color: #64748b;
 }
 
-.status-update select {
-  padding: 0.3rem 0.6rem;
+.status-update-small select {
+  padding: 0.2rem 0.5rem;
   border: 1px solid #e2e8f0;
   border-radius: 6px;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
+  background: white;
+}
+
+.app.dark .status-update-small select {
+  background: #1e293b;
+  border-color: #334155;
+  color: white;
 }
 
 /* Modal */
@@ -450,6 +454,27 @@ body {
 }
 
 /* Responsive */
+@media (max-width: 900px) {
+  .invoice-row-single {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .invoice-expand-icon {
+    margin-left: 0;
+  }
+  
+  .action-buttons-small {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .status-update-small {
+    margin-left: 0;
+    justify-content: space-between;
+  }
+}
+
 @media (max-width: 768px) {
   .sidebar {
     width: 60px;
@@ -463,26 +488,6 @@ body {
     padding: 1rem;
   }
   
-  .invoice-row-compact {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
-  
-  .invoice-expand-icon {
-    align-self: flex-end;
-  }
-  
-  .action-buttons {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  
-  .status-update {
-    margin-left: 0;
-    justify-content: space-between;
-  }
-  
   .filter-actions {
     flex-direction: column;
     align-items: stretch;
@@ -490,5 +495,13 @@ body {
   
   .right-actions {
     justify-content: space-between;
+  }
+  
+  .invoice-id {
+    min-width: 70px;
+  }
+  
+  .invoice-client {
+    min-width: 120px;
   }
 }

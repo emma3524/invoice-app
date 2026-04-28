@@ -171,26 +171,18 @@ function App() {
             </div>
           </div>
 
-          {/* Invoice List - No Headers */}
+          {/* Invoice List - Single Line per Invoice */}
           <div className="invoice-list">
             {filteredInvoices.map((invoice) => (
               <div key={invoice.id} className="invoice-item">
-                <div className="invoice-row-compact" onClick={() => toggleExpand(invoice.id)}>
-                  <div className="invoice-info">
-                    <div className="invoice-id-status">
-                      <span className="invoice-id">{invoice.id}</span>
-                      <span className={`status-badge-small ${getStatusClass(invoice.status)}`}>
-                        {invoice.status}
-                      </span>
-                    </div>
-                    <div className="invoice-details">
-                      <span className="invoice-client">{invoice.client}</span>
-                      <span className="invoice-amount">£{invoice.amount.toLocaleString()}</span>
-                    </div>
-                    <div className="invoice-date">
-                      Due {invoice.dueDate}
-                    </div>
+                <div className="invoice-row-single" onClick={() => toggleExpand(invoice.id)}>
+                  <div className="invoice-id">{invoice.id}</div>
+                  <div className={`status-badge-small ${getStatusClass(invoice.status)}`}>
+                    {invoice.status}
                   </div>
+                  <div className="invoice-client">{invoice.client}</div>
+                  <div className="invoice-amount">£{invoice.amount.toLocaleString()}</div>
+                  <div className="invoice-date">Due {invoice.dueDate}</div>
                   <div className="invoice-expand-icon">
                     <span className={`expand-arrow ${expandedRow === invoice.id ? 'expanded' : ''}`}>
                       &gt;
@@ -198,17 +190,17 @@ function App() {
                   </div>
                 </div>
                 
-                {/* Expandable Actions Panel */}
+                {/* Expandable Actions Panel - Small buttons */}
                 {expandedRow === invoice.id && (
                   <div className="invoice-actions-panel">
-                    <div className="action-buttons">
-                      <button className="action-edit" onClick={() => handleEdit(invoice)}>
+                    <div className="action-buttons-small">
+                      <button className="action-edit-small" onClick={() => handleEdit(invoice)}>
                         ✏️ Edit
                       </button>
-                      <button className="action-delete" onClick={() => handleDelete(invoice.id)}>
+                      <button className="action-delete-small" onClick={() => handleDelete(invoice.id)}>
                         🗑️ Delete
                       </button>
-                      <div className="status-update">
+                      <div className="status-update-small">
                         <label>Status:</label>
                         <select
                           value={invoice.status}
