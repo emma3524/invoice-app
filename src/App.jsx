@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import './App.css'
 
 function App() {
@@ -7,6 +7,9 @@ function App() {
   const [showModal, setShowModal] = useState(false)
   const [editingInvoice, setEditingInvoice] = useState(null)
   const [expandedRow, setExpandedRow] = useState(null)
+  const [showUserMenu, setShowUserMenu] = useState(false)
+  const userMenuRef = useRef(null)
+  
   const [invoices, setInvoices] = useState([
     { id: '#RT3080', dueDate: '19 Aug 2021', client: 'Emma Thompson', amount: 1800.90, status: 'paid' },
     { id: '#XM9141', dueDate: '20 Sep 2021', client: 'Michael Chen', amount: 556.00, status: 'pending' },
@@ -23,6 +26,17 @@ function App() {
     dueDate: '',
     status: 'pending'
   })
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
+        setShowUserMenu(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
 
   const filteredInvoices = statusFilter === 'all' 
     ? invoices 
@@ -113,6 +127,26 @@ function App() {
     setExpandedRow(expandedRow === id ? null : id)
   }
 
+  const toggleUserMenu = () => {
+    setShowUserMenu(!showUserMenu)
+  }
+
+  const handleMenuAction = (action) => {
+    setShowUserMenu(false)
+    if (action === 'darkMode') {
+      setDarkMode(!darkMode)
+    } else if (action === 'invoices') {
+      // Scroll to invoices section
+      document.querySelector('.invoice-list')?.scrollIntoView({ behavior: 'smooth' })
+    } else if (action === 'settings') {
+      alert('Settings page coming soon!')
+    } else if (action === 'profile') {
+      alert('Profile page coming soon!')
+    } else if (action === 'logout') {
+      alert('Logged out!')
+    }
+  }
+
   return (
     <div className={`app ${darkMode ? 'dark' : ''}`}>
       {/* Sidebar */}
@@ -125,17 +159,50 @@ function App() {
 
         <div className="sidebar-spacer"></div>
 
-        <div className="sidebar-footer">
-          <button className="dark-mode-toggle-sidebar" onClick={() => setDarkMode(!darkMode)}>
-            {darkMode ? '☀️' : '🌙'}
-          </button>
-          <div className="user-info">
+        {/* User Avatar with Dropdown */}
+        <div className="sidebar-footer" ref={userMenuRef}>
+          <div className="user-avatar-container" onClick={toggleUserMenu}>
             <img 
               src="https://i.pravatar.cc/150?img=7" 
               alt="User avatar"
               className="sidebar-avatar"
             />
           </div>
+          
+          {/* Dropdown Menu */}
+          {showUserMenu && (
+            <div className="user-dropdown-menu">
+              <div className="dropdown-header">
+                <img 
+                  src="https://i.pravatar.cc/150?img=7" 
+                  alt="User avatar"
+                  className="dropdown-avatar"
+                />
+                <div className="dropdown-user-info">
+                  <div className="dropdown-user-name">Emma Thompson</div>
+                  <div className="dropdown-user-email">emma@invoiceapp.com</div>
+                </div>
+              </div>
+              <div className="dropdown-divider"></div>
+              <button className="dropdown-item" onClick={() => handleMenuAction('invoices')}>
+                📋 Invoices
+              </button>
+              <button className="dropdown-item" onClick={() => handleMenuAction('settings')}>
+                ⚙️ Settings
+              </button>
+              <button className="dropdown-item" onClick={() => handleMenuAction('profile')}>
+                👤 Profile
+              </button>
+              <div className="dropdown-divider"></div>
+              <button className="dropdown-item" onClick={() => handleMenuAction('darkMode')}>
+                {darkMode ? '☀️ Light Mode' : '🌙 Dark Mode'}
+              </button>
+              <div className="dropdown-divider"></div>
+              <button className="dropdown-item logout" onClick={() => handleMenuAction('logout')}>
+                🚪 Logout
+              </button>
+            </div>
+          )}
         </div>
       </div>
 
