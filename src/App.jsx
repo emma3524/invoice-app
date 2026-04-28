@@ -29,75 +29,84 @@ function App() {
 
   return (
     <div className={`app ${darkMode ? 'dark' : ''}`}>
-      <div className="container">
-        {/* Header with Logo and User */}
-        <div className="header">
-          <div className="logo">
-            <div className="logo-icon">📄</div>
+      {/* Sidebar - Logo Only */}
+      <div className="sidebar">
+        <div className="sidebar-logo">
+          <div className="logo-icon">📄</div>
+        </div>
+
+        <div className="sidebar-spacer"></div>
+
+        <div className="sidebar-footer">
+          <button className="dark-mode-toggle-sidebar" onClick={() => setDarkMode(!darkMode)}>
+            {darkMode ? '☀️' : '🌙'}
+          </button>
+          <div className="user-info">
+            <img 
+              src="https://i.pravatar.cc/150?img=7" 
+              alt="User avatar"
+              className="sidebar-avatar"
+            />
           </div>
-          <div className="header-right">
-            <button className="dark-mode-toggle" onClick={() => setDarkMode(!darkMode)}>
-              {darkMode ? '☀️' : '🌙'}
-            </button>
-            <div className="user-avatar">
-              <img 
-                src="https://i.pravatar.cc/150?img=7" 
-                alt="User avatar"
-                className="avatar-img"
-              />
-              <div className="avatar-status online"></div>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="main-content">
+        <div className="content-wrapper">
+          {/* Header */}
+          <div className="content-header">
+            <div>
+              <h1>Invoices</h1>
+              <p className="invoice-count">There are {filteredInvoices.length} total invoices</p>
             </div>
           </div>
-        </div>
 
-        {/* Title Section */}
-        <div className="title-section">
-          <h1>Invoices</h1>
-          <p className="invoice-count">There are {filteredInvoices.length} total invoices</p>
-        </div>
-
-        {/* Filter Bar */}
-        <div className="filter-bar">
-          <div className="filter-dropdown">
-            <label>Filter by status</label>
-            <select 
-              value={statusFilter} 
-              onChange={(e) => setStatusFilter(e.target.value)}
-              className="status-select"
-            >
-              <option value="all">All</option>
-              <option value="paid">Paid</option>
-              <option value="pending">Pending</option>
-              <option value="draft">Draft</option>
-            </select>
-          </div>
-          <button className="new-invoice-btn">+ New Invoice</button>
-        </div>
-
-        {/* Invoice Table */}
-        <div className="invoice-table">
-          <div className="table-header">
-            <div className="col-id">Invoice ID</div>
-            <div className="col-due">Due Date</div>
-            <div className="col-client">Client Name</div>
-            <div className="col-amount">Amount</div>
-            <div className="col-status">Status</div>
+          {/* Filter and New Invoice - Same Line */}
+          <div className="filter-actions">
+            <div className="filter-group">
+              <label>Filter by status</label>
+              <select 
+                value={statusFilter} 
+                onChange={(e) => setStatusFilter(e.target.value)}
+                className="status-filter-select"
+              >
+                <option value="all">All</option>
+                <option value="paid">Paid</option>
+                <option value="pending">Pending</option>
+                <option value="draft">Draft</option>
+              </select>
+            </div>
+            <button className="new-invoice-btn">+ New Invoice</button>
           </div>
 
-          <div className="table-body">
-            {filteredInvoices.map((invoice) => (
-              <div className="invoice-row" key={invoice.id}>
-                <div className="col-id">{invoice.id}</div>
-                <div className="col-due">Due {invoice.dueDate}</div>
-                <div className="col-client">{invoice.client}</div>
-                <div className="col-amount">£{invoice.amount.toLocaleString()}</div>
-                <div className="col-status">
-                  <span className={`status-badge ${getStatusClass(invoice.status)}`}>
-                    {invoice.status}
-                  </span>
-                </div>
+          {/* Invoice Table */}
+          <div className="invoice-table-container">
+            <div className="invoice-table">
+              <div className="table-header">
+                <div className="col-id">Invoice ID</div>
+                <div className="col-due">Due Date</div>
+                <div className="col-client">Client Name</div>
+                <div className="col-amount">Amount</div>
+                <div className="col-status">Status</div>
               </div>
-            ))}
+
+              <div className="table-body">
+                {filteredInvoices.map((invoice) => (
+                  <div className="invoice-row" key={invoice.id}>
+                    <div className="col-id">{invoice.id}</div>
+                    <div className="col-due">Due {invoice.dueDate}</div>
+                    <div className="col-client">{invoice.client}</div>
+                    <div className="col-amount">£{invoice.amount.toLocaleString()}</div>
+                    <div className="col-status">
+                      <span className={`status-badge ${getStatusClass(invoice.status)}`}>
+                        {invoice.status}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
