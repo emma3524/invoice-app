@@ -15,7 +15,7 @@ A fully-functional React invoice management application with CRUD operations, st
 - Status-based filtering
 - Paid invoices cannot be edited/deleted
 
-✅ **Form Validation**
+✅ **Form Validation..
 - Client name (required, min 2 chars)
 - Email validation
 - Due date must be in future
